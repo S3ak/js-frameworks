@@ -1,4 +1,4 @@
-# Lesson 3 - React Bootstrap and Routing
+# Lesson 3 - React Mantine and Routing
 
 ## Introduction
 
@@ -10,7 +10,7 @@ The best thing about React components is that they are reusable. Once written, w
 
 There are several React UI libraries of varying quality, with Material-UI, Ant Design and React Bootstrap being three of the most popular ones.
 
-We are going to look at Mantine,it is easy to set up and use.
+We are going to look at Mantine, it is easy to set up and use.
 
 We’ll start with a new app:
 
@@ -32,6 +32,10 @@ export function MyApp() {
 
 ## Routing
 
+Routing is how our users navigate our SPA application. Each webpage can be described as a route. Routes can be nested in other routes. This is how we can build dynamic and flexible web experiences.
+
+First we will create a home, about and contact page.
+
 We have a link to an About page and a Contact page in our navigation, but no way to display that content.
 
 We will create components to display content on each of those pages, but first let’s create a Heading component which will receive a title prop and return an h1 element.
@@ -50,12 +54,12 @@ Now let’s add three new components, Home, About and Contact.
 
 Create the following files:
 
-- src/components/home/Home.js
-- src/components/about/About.js
-- src/components/contact/Contact.js
+- src/routes/home/index.js
+- src/routes/about/index.js
+- src/routes/contact/index.js
   Import the Heading component in each and set a title value for the prop in each.
 
-In src/components/home/Home.js:
+In src/routes/home/index.js:
 
 ```js
 import Heading from "../layout/Heading";
@@ -65,7 +69,7 @@ export default function Home() {
 }
 ```
 
-In src/components/about/About.js:
+In src/routes/about/index.js:
 
 ```js
 import Heading from "../layout/Heading";
@@ -81,7 +85,7 @@ export default function About() {
 }
 ```
 
-In src/components/contact/Contact.js:
+In src/routes/contact/index.js:
 
 ```js
 import Heading from "../layout/Heading";
@@ -95,6 +99,8 @@ export default function Contact() {
 
 Now we need something to navigate around the site. We are going to use React Router.
 
+There are a few routing options avalible in the reac eco-system but the most popular is react-router.
+
 We’ll use code very similar to that found in the quick start guide in the official docs, except we are using it with React Bootstrap components.
 
 `npm i react-router-dom@6`
@@ -106,19 +112,14 @@ Now we can write code to navigate between these components.
 In Layout.js, we need to add more imports and edit what is returned:
 
 ```js
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  NavLink,
-} from "react-router-dom";
-import Home from "../home/Home";
-import About from "../about/About";
-import Contact from "../contact/Contact";
+import { BrowserRouter, Switch, Route, NavLink } from "react-router-dom";
+import Home from "../routes/home";
+import About from "../routes/about";
+import Contact from "../routes/contact";
 
 function Layout() {
   return (
-    <Router>
+    <BrowserRouter>
       <Navbar bg="dark" variant="dark" expand="lg">
         <NavLink to="/" exact>
           <Navbar.Brand>React App</Navbar.Brand>
@@ -140,12 +141,12 @@ function Layout() {
       </Navbar>
       <Container>
         <Switch>
-          <Route path="/" exact component={Home} />
+          <Route path="/" index component={Home} />
           <Route path="/about" component={About} />
           <Route path="/contact" component={Contact} />
         </Switch>
       </Container>
-    </Router>
+    </BrowserRouter>
   );
 }
 
@@ -153,8 +154,6 @@ export default Layout;
 ```
 
 Apart from the new imports, we swapped out the Nav.Link Bootstrap components for NavLink components from React Router.
-
-We added a Switch to contain our Routes.
 
 Each Route points to a component we created above.
 
