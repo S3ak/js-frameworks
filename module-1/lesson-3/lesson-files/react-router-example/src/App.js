@@ -4,7 +4,7 @@ import { NavLink, Routes, Route } from "react-router-dom";
 import Home from "./routes/home";
 import About from "./routes/about";
 import Contact from "./routes/contact";
-import Todo from "./routes/todo";
+import Todos from "./routes/todos";
 
 import Story from "./components/story";
 import Profile from "./components/profile";
@@ -82,7 +82,7 @@ function App() {
           </Route>
           <Route path="/contact" element={<Contact />} />
 
-          <Route path="/todos" element={<Todo />}>
+          <Route path="/todos" element={<Todos />}>
             <Route path=":todoId" element={<TodoItem />} />
           </Route>
 

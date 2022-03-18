@@ -1,9 +1,9 @@
+import { Link, Outlet } from "react-router-dom";
+
 import Heading from "../../components/layouts/Heading";
 import todoJson from "../../libs/todoData";
 
-import { Link, Outlet } from "react-router-dom";
-
-export default function Todo() {
+export default function Todos() {
   const todos = todoJson;
 
   return (
