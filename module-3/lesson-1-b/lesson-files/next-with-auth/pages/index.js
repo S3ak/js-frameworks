@@ -4,6 +4,7 @@ import styles from "../styles/Home.module.css";
 import { useSession, signIn, signOut } from "next-auth/react";
 
 export default function Home() {
+  // Use session provides us with the current sesion (User logged in)
   const { data: session } = useSession();
 
   return (
@@ -15,7 +16,15 @@ export default function Home() {
       </Head>
 
       <main>
-        hello world {session?.user?.email}
+        {/* NOTE: We can't be certain that we will have the session  */}
+        <h1>hello {session?.user?.name}</h1>
+
+        <section>
+          {session && (
+            <div>You can only see this content when you're logged in</div>
+          )}
+        </section>
+
         <section>
           <button onClick={() => signIn()}>Sign In</button>
           <br />
