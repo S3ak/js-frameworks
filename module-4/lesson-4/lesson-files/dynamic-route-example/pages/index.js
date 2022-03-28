@@ -2,13 +2,11 @@ import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-
 // import peopleJson from "../libs/people-data";
 
 export default function Home() {
   const router = useRouter();
   const [characters, setCharacters] = useState([]);
-  // console.log("peopleJson >>>", peopleJson);
 
   const handleOnClick = (id) => {
     router.push(`/people/${id}`);
@@ -22,7 +20,17 @@ export default function Home() {
     };
 
     getCharacters();
-  });
+  }, []);
+
+  useEffect(() => {
+    const getMyData = async () => {
+      // Fetch data from our own API endpoint
+      const data = await fetch("/api/people");
+      console.log("data from my api>>>", await data.json());
+    };
+
+    getMyData();
+  }, []);
 
   console.log("characters", characters);
 
